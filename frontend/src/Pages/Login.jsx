@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ButtonAppBar from "../Components/Navbar";
+// import ButtonAppBar from "../Components/Navbar";
 import { Link } from "react-router-dom";
 
 
@@ -44,7 +44,7 @@ const Login = () => {
     };
     return (
         <div>
-                    <ButtonAppBar/>
+                    {/* <ButtonAppBar/> */}
             <ThemeProvider theme={theme}>
                 <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />

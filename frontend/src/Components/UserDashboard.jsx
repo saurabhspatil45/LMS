@@ -16,8 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const drawerWidth = 210;
 
@@ -68,8 +69,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserDashboard() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState(true);
+  const Navigate = useNavigate()
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -78,10 +79,12 @@ export default function UserDashboard() {
     setOpen(false);
   };
 
+
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" sx={{backgroundColor:"#cecece",color:"black"}}  open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -95,7 +98,18 @@ export default function UserDashboard() {
           <Typography variant="h6" noWrap component="div">
             LMS
           </Typography>
+          <Typography>
+          <div style={{width:1200,display:"flex",justifyContent:"space-between"}}>
+            <Box>
+            </Box>
+            <div style={{display:"flex",gap:10,}}>
+            <Button sx={{border:"1px solid black",color:"black",fontWeight:"bold"}} onClick={()=>{Navigate("/login")}}>Log in</Button>
+           <Button sx={{border:"1px solid black",color:"white",fontWeight:"bold",backgroundColor:"black"}} onClick={()=>{Navigate("/singup")}}>Sing up</Button>
+           </div>
+          </div>
+          </Typography>
         </Toolbar>
+        
       </AppBar>
       <Drawer
         sx={{
@@ -117,34 +131,27 @@ export default function UserDashboard() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+            <ListItem disablePadding onClick={()=>{Navigate("/")}}>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="ALL-Courses"  />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+            {/* <ListItem disablePadding onClick={()=>{Navigate("/coureses")}}>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Courses Manegnment"  />
               </ListItemButton>
-            </ListItem>
-          ))}
+            </ListItem> */}
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -170,7 +177,7 @@ export default function UserDashboard() {
           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
       </Main>
     </Box>
   );
