@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Home = () => {
     const [data, setData] = useState([]);
 
@@ -24,17 +25,17 @@ const Home = () => {
         <div>
             <Box sx={{ display: 'flex' }}>
                 <UserDashboard />
-                <Box sx={{mt: 10, width: 1250, display:"grid",gridTemplateColumns:"repeat(3,1fr)" }}>
+                <Box sx={{mt: 12, width: 1250, display:"grid",gridTemplateColumns:"repeat(3,1fr)" }}>
 
                 {data.map(post => (
-
-                    <Card key={post.id}  sx={{ maxWidth: 345 }}>
+                    <div key={post.id} >
+                    <Card  sx={{ maxWidth: 345 }}>
                         <CardActionArea>
                         <iframe width="300" height="140" src={post.Link} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                    {post.Heading}
+                                  <Link to={`/home/${post.id}`}>{post.Heading}</Link>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     {post.Desc}
@@ -42,6 +43,7 @@ const Home = () => {
                             </CardContent>
                         </CardActionArea>
                     </Card>
+                    </div>
                     ))}
 
                 </Box>

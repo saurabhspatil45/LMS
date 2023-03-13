@@ -3,44 +3,47 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import ButtonAppBar from "../Components/Navbar";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-
-// function Copyright(props) {
-
-//     return (
-
-//         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//             {'Copyright © '}
-//             <Link color="inherit" href="https://mui.com/">
-//                 Your Website
-//             </Link>{' '}
-//             {new Date().getFullYear()}
-//             {'.'}
-//         </Typography>
-//     );
-// }
 
 const theme = createTheme();
 
 const Login = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+const navigate =useNavigate()
+    const handleSubmit = () => {
+       const payload = {
+            email,
+            password,
+        }
+
+        fetch("http://localhost:8080/user/login",{
+            method : "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body : JSON.stringify(payload)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res)
+             if(res.token){
+            //     localStorage.setItem("LMS_Token", res.token)
+                 navigate("/admindashboard")
+             }
+        })
+        .catch((err) => console.log(err))
     };
     return (
         <div>
@@ -78,7 +81,7 @@ const Login = () => {
                             <Typography component="h1" variant="h5">
                                 Sign in
                             </Typography>
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <Box component="form"sx={{ mt: 1 }}>
                                 <TextField
                                     margin="normal"
                                     required
@@ -88,6 +91,7 @@ const Login = () => {
                                     name="email"
                                     autoComplete="email"
                                     autoFocus
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <TextField
                                     margin="normal"
@@ -98,34 +102,21 @@ const Login = () => {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
-                                {/* <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                /> */}
+                               
                                 <Button
-                                    type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
+                                    onClick={handleSubmit}
                                 >
-                                    <Link  to={"/admindashboard"} style={{textDecoration: 'none',color:"white"}}>
-                                    Sign In
-                                    </Link>
-                                </Button>
+                                   
+                               Sign In </Button>
                                 <Grid container>
-                                    {/* <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid> */}
-                                    {/* <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid> */}
+                                   
                                 </Grid>
-                                {/* <Copyright sx={{ mt: 5 }} /> */}
+                               
                             </Box>
                         </Box>
                     </Grid>

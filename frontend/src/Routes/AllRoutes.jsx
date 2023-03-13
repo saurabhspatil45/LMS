@@ -4,6 +4,7 @@ import AdminDashboard from "../Pages/AdminDashboard.jsx"
 import { Course } from "../Pages/Course.jsx"
 import Home from "../Pages/Home.jsx"
 import Login from "../Pages/Login.jsx"
+import { PlayVideo } from "../Pages/PlayVideo.jsx"
 import SignUp from "../Pages/SignUp.jsx"
 import UserManegment from "../Pages/UserManegment.jsx"
 
@@ -18,6 +19,7 @@ const AllRoutes = () => {
                 <Route path="/admindashboard" element={<AdminDashboard/>}/>
                 <Route path="/usermanegment" element={<UserManegment/>}/>
                 <Route path="/coureses" element={<Course/>}/>
+                <Route path="/home/:id" element={<PlayVideo/>}/>
             </Routes>
         </div>
     )

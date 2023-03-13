@@ -25,7 +25,7 @@ export default function AdminDashboard() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` ,backgroundColor:"#7163ac"}}
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
