@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const { userController } = require("./Routes/User.routes.js")
+const {TrainerController}=require("./Routes/Trainer.routes.js")
 const { connection } = require("./Config/db.js")
 // const {authentication} =require("./Middleware/authentication.js")
 const app = express();
@@ -19,6 +20,8 @@ app.use(cors())
 
 app.use("/user", userController)
 // app.use(authentication)
+app.use("/trainer", TrainerController)
+
 
 app.listen(PORT, async () => {
     try {

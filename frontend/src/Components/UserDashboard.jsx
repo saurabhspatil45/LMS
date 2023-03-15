@@ -103,7 +103,7 @@ export default function UserDashboard() {
             <Box>
             </Box>
             <div style={{display:"flex",gap:10,}}>
-            <Button sx={{border:"1px solid black",color:"black",fontWeight:"bold"}} onClick={()=>{Navigate("/login")}}>Log in</Button>
+            <Button sx={{border:"1px solid black",color:"black",fontWeight:"bold"}} onClick={()=>{Navigate("/loginselect")}}>Log in</Button>
            <Button sx={{border:"1px solid black",color:"white",fontWeight:"bold",backgroundColor:"black"}} onClick={()=>{Navigate("/singup")}}>Sing up</Button>
            </div>
           </div>

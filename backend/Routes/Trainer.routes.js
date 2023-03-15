@@ -1,63 +1,70 @@
 const { Router } = require("express")
 const bcrypt = require('bcrypt');
-const { UserModel } = require("../Models/User.model.js")
+const { TrainerModel } = require('../Models/Trainer.model.js')
+const TrainerController = Router();
 const jwt = require("jsonwebtoken")
-const userController = Router();
 require("dotenv").config()
 
-userController.post("/signup", async (req, res) => {
+
+
+TrainerController.post("/signup", async (req, res) => {
     try {
-        const { email, password, lname, fname, mobno, isAdmin, isSuperAdmin } = req.body;
+        const { fname, lname, mobno, email, password, position, company, education, skills, avatar, created, roles, isAdmin } = req.body;
 
         // check if email already exists
-        const existingUser = await UserModel.findOne({ email });
+        const existingUser = await TrainerModel.findOne({ email });
         if (existingUser) {
-          return res.status(400).json({ message: 'Email already exists' });
+            return res.status(400).json({ message: 'Email already exists' });
         }
 
         // hash password with bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // create new user object with hashed password
-        const User = new UserModel({
-            email,
-            password: hashedPassword,
-            lname,
+        const Trainer = new TrainerModel({
             fname,
+            lname,
             mobno,
-            isSuperAdmin,
+            email, password: hashedPassword,
+            position,
+            company,
+            education,
+            skills, avatar,
+            created,
+            roles,
             isAdmin
         });
 
         // save new user to database
-        await User.save();
+        await Trainer.save();
 
-        res.status(201).json({ message: 'User created' });
-        // res.json({msg : "Signup successfull"})
+        res.status(201).json({ message: 'Trainer created' });
+        //res.json({ msg: "Signup successfull" })
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
-userController.post("/login", async (req, res) => {
+
+TrainerController.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
         // check if user exists with given email
-        const user = await UserModel.findOne({ email });
-        if (!user) {
+        const trainer = await TrainerModel.findOne({ email });
+        if (!trainer) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // compare provided password with hashed password
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(password, trainer.password);
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // password is correct, create and send JWT token
-        const token = jwt.sign({userId : user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: trainer._id }, process.env.JWT_SECRET);
         res.json({ token });
         // console.log(token)
     } catch (error) {
@@ -66,20 +73,6 @@ userController.post("/login", async (req, res) => {
     }
 })
 
-
-
-
-userController.get("/alluser", async (req, res) => {
-    const user = await UserModel.find();
-    try {
-        res.status(200).send({
-            user: user,
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
 module.exports = {
-    userController
+    TrainerController
 }
