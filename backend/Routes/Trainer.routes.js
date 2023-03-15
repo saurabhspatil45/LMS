@@ -73,6 +73,19 @@ TrainerController.post("/login", async (req, res) => {
     }
 })
 
+
+
+TrainerController.get("/alltrainer", async (req, res) => {
+    const trainer = await TrainerModel.find();
+    try {
+        res.status(200).send({
+            trainer: trainer,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = {
     TrainerController
 }

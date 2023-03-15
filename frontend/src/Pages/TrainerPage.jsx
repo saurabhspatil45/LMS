@@ -1,11 +1,10 @@
 import { Box } from "@mui/system";
 import AdminDashboard from "./AdminDashboard";
 import { UserManegmentNav } from "../Components/UserManegmentNav";
-import { UserTableDetails } from "./UserTableDetails";
+import { TrainerDetails } from "../Components/TrainerDetails";
 
+export const TrainerPage = () => {
 
-
-export const UserTable = () => {
 
     return (
         <div>
@@ -16,10 +15,12 @@ export const UserTable = () => {
                     sx={{ flexGrow: 1, bgcolor: 'background.default', mt: 8, p: 5 }}
                 >
                     <UserManegmentNav />
-                    <UserTableDetails/>
 
+                    <TrainerDetails />
                 </Box>
             </Box>
         </div>
     )
+
 }
+
