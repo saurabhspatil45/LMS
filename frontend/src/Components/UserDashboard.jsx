@@ -104,7 +104,7 @@ export default function UserDashboard() {
             </Box>
             <div style={{display:"flex",gap:10,}}>
             <Button sx={{border:"1px solid black",color:"black",fontWeight:"bold"}} onClick={()=>{Navigate("/loginselect")}}>Log in</Button>
-           <Button sx={{border:"1px solid black",color:"white",fontWeight:"bold",backgroundColor:"black"}} onClick={()=>{Navigate("/singup")}}>Sing up</Button>
+           <Button sx={{border:"1px solid black",color:"white",fontWeight:"bold",backgroundColor:"black"}} onClick={()=>{Navigate("/singup")}}>Sign up</Button>
            </div>
           </div>
           </Typography>
@@ -131,7 +131,7 @@ export default function UserDashboard() {
         </DrawerHeader>
         <Divider />
         <List>
-            <ListItem disablePadding onClick={()=>{Navigate("/")}}>
+            <ListItem disablePadding onClick={()=>{Navigate("/allcourse")}}>
               <ListItemButton>
                 <ListItemIcon>
                   <AdminPanelSettingsIcon/>
@@ -139,14 +139,14 @@ export default function UserDashboard() {
                 <ListItemText primary="ALL-Courses"  />
               </ListItemButton>
             </ListItem>
-            {/* <ListItem disablePadding onClick={()=>{Navigate("/coureses")}}>
+            <ListItem disablePadding onClick={()=>{Navigate("/ourtrainers")}}>
               <ListItemButton>
                 <ListItemIcon>
                   <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Courses Manegnment"  />
+                <ListItemText primary="Trainers"  />
               </ListItemButton>
-            </ListItem> */}
+            </ListItem>
         </List>
       </Drawer>
       <Main open={open}>

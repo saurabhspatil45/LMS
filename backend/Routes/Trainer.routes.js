@@ -9,7 +9,7 @@ require("dotenv").config()
 
 TrainerController.post("/signup", async (req, res) => {
     try {
-        const { fname, lname, mobno, email, password, position, company, education, skills, avatar, created, roles, isAdmin } = req.body;
+        const { fname, lname, mobno, email, password, position, company, education, skills, avatar, created, roles, isAdmin, isActive } = req.body;
 
         // check if email already exists
         const existingUser = await TrainerModel.findOne({ email });
@@ -32,7 +32,8 @@ TrainerController.post("/signup", async (req, res) => {
             skills, avatar,
             created,
             roles,
-            isAdmin
+            isAdmin,
+            isActive
         });
 
         // save new user to database
@@ -64,7 +65,7 @@ TrainerController.post("/login", async (req, res) => {
         }
 
         // password is correct, create and send JWT token
-        const token = jwt.sign({ userId: trainer._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: trainer._id, userName: trainer.fname }, process.env.JWT_SECRET);
         res.json({ token });
         // console.log(token)
     } catch (error) {
@@ -74,6 +75,23 @@ TrainerController.post("/login", async (req, res) => {
 })
 
 
+TrainerController.delete("/delete/:id", async (req, res) => {
+    try {
+        const { id: trainerid } = req.params;
+        const trainer = await TrainerModel.findByIdAndDelete(trainerid);
+        if (!trainer) {
+            return res.status(404).json({ message: `No user with id: ${trainerid}` });
+        } else {
+            res.status(200).json({
+                message: `user with id : ${trainerid} deleted successfully`,
+                trainer: trainer,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 TrainerController.get("/alltrainer", async (req, res) => {
     const trainer = await TrainerModel.find();
@@ -81,6 +99,48 @@ TrainerController.get("/alltrainer", async (req, res) => {
         res.status(200).send({
             trainer: trainer,
         });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+TrainerController.get("/get/:id", async (req, res) => {
+    try {
+        const { id: trainerid } = req.params;
+        const trainer = await TrainerModel.findById(trainerid);
+        if (!trainer) {
+            return res.status(404).json({ message: `No user with id: ${trainerid}` });
+        } else {
+            res.status(200).json({
+                message: `user with id : ${trainerid} found successfully`,
+                trainer: trainer,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+
+    }
+})
+
+//patch request
+//  http://localhost:8080/trainer/patch/id
+
+TrainerController.patch("/patch/:id", async (req, res) => {
+    try {
+        const { id: trainerid } = req.params;
+        const trainer = await TrainerModel.findByIdAndUpdate(trainerid, req.body, {
+            new: true,
+            runValidators: true,
+        });
+
+        if (!trainer) {
+            return res.status(404).json({ message: `No Trainer with id: ${trainerid}` });
+        } else {
+            res.status(200).json({
+                message: `Trainer with id: ${trainerid} updated successfully`,
+                trainer: trainer,
+            });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

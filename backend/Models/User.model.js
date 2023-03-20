@@ -10,8 +10,6 @@ const userSchema = mongoose.Schema({
     isAdmin:{type:Boolean,default:false},
     isSuperAdmin:{type:Boolean,default:false},
 
-
-
 })
 
 const UserModel = mongoose.model("user", userSchema)

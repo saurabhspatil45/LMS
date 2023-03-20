@@ -40,7 +40,7 @@ const navigate =useNavigate()
             console.log(res)
              if(res.token){
             //     localStorage.setItem("LMS_Token", res.token)
-                 navigate("/admindashboard")
+                 navigate("/")
              }
         })
         .catch((err) => console.log(err))

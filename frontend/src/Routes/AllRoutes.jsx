@@ -12,6 +12,8 @@ import { TrainerLogin } from "../Pages/TrainerLogin.jsx"
 import UserManegment from "../Pages/UserManegment.jsx"
 import { UserTable } from "../Pages/UserTable.jsx"
 import { TrainerPage } from "../Pages/TrainerPage.jsx"
+import Allcourse from "../Pages/Allcourse.jsx"
+import UserTrainerPage from "../Pages/UserTrainerPage.jsx"
 const AllRoutes = () => {
 
     return (
@@ -23,6 +25,8 @@ const AllRoutes = () => {
                 <Route path="/loginselect" element={<LoginSelect/>}/>
                 <Route path="/trainerlogin" element={<TrainerLogin/>}/>
                 <Route path="/admindashboard" element={<AdminDashboard/>}/>
+                <Route path="/allcourse" element={<Allcourse/>}/>
+                <Route path="/ourtrainers" element={<UserTrainerPage/>}/>
                 <Route path="/usermanegment" element={<UserManegment/>}/>
                 <Route path="/coureses" element={<Course/>}/>
                 <Route path="/home/:id" element={<PlayVideo/>}/>
