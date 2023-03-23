@@ -5,76 +5,67 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-
+import {  CardActionArea, CardActions } from '@mui/material';
 import axios from "axios";
-import { Link } from "react-router-dom";
-const UserTarinerDetails = () => {
+import { useParams } from "react-router-dom";
+
+
+export const TrainerFullInfoCilent =()=>{
+
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const params =useParams()
 
-
-    const GetTrainers = () => {
+    useEffect(() => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/trainer/alltrainer')
+        axios.get(`http://localhost:8080/trainer/get/${params.id}`)
             .then(response => {
-                setData(response.data.trainer.filter(item =>  item.isActive === true));
+                setData(response.data.trainer);
                 setIsLoading(false);
             })
             .catch(error => {
                 console.error(error);
                 setIsLoading(false);
             });
-    }
-
-
-
-    useEffect(() => {
-        GetTrainers()
-    }, []);
+    },[params.id]);
     
     if (isLoading) {
         return <div style={{margin:"auto"}}><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjM0NjU4Y2I4ZGQ5NDM2MTVhMDEzMjAyMDI3ZWI0MTE2ODRmNTAzZCZjdD1n/ZO9b1ntYVJmjZlsWlm/giphy.gif" alt="loading" /></div>;
     }
-    return (
-           
-                <Box sx={{mt: 12, width: 1250, display:"grid",gridTemplateColumns:"repeat(3,1fr)"  }}>
-                {data.map(item => (
-                        <div key={item._id}>
+    return(
+        <div>
+<Box sx={{mt: 12, width: 1250, display:"grid",gridTemplateColumns:"repeat(3,1fr)"  }}>
+                {/* {data.map(item => ( */}
+                        <div >
                  <Card sx={{ maxWidth: 345 }}>
                                 <CardActionArea >
                                     <CardMedia
                                         component="img"
                                         height="150"
-                                        image={item.avatar}
+                                        image={data.avatar}
                                         alt="green iguana"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {item.fname} {item.lname}
+                                            {data.fname} {data.lname}
                                         </Typography>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {item.mobno}
+                                            {data.mobno}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            {item.email}
+                                            {data.email}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button size="small" color="primary">
-                                       <Link to={`/ourtrainers/${item._id}`}>More Details</Link> 
-                                    </Button>
+                                   
                                 </CardActions>
                             </Card>
 
                             </div>
-                    ))}
+                    {/* ))} */}
 
                 </Box>
-           
+        </div>
     )
 }
-
-
-export default UserTarinerDetails

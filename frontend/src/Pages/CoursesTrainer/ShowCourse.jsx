@@ -9,16 +9,17 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 import axios from "axios";
 import { Link } from "react-router-dom";
-const UserTarinerDetails = () => {
+import { AdminDialog } from "./AdminDialog";
+const ShowCourse = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
 
     const GetTrainers = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/trainer/alltrainer')
+        axios.get('http://localhost:8080/course/allcourse')
             .then(response => {
-                setData(response.data.trainer.filter(item =>  item.isActive === true));
+                setData(response.data.courses);
                 setIsLoading(false);
             })
             .catch(error => {
@@ -46,25 +47,25 @@ const UserTarinerDetails = () => {
                                     <CardMedia
                                         component="img"
                                         height="150"
-                                        image={item.avatar}
+                                        image={item.img}
                                         alt="green iguana"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {item.fname} {item.lname}
+                                            {item.name} 
                                         </Typography>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {item.mobno}
+                                            {item.des}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            {item.email}
+                                            created:{item.owner}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button size="small" color="primary">
+                                    {/* <Button size="small" color="primary">
                                        <Link to={`/ourtrainers/${item._id}`}>More Details</Link> 
-                                    </Button>
+                                    </Button> */}
                                 </CardActions>
                             </Card>
 
@@ -77,4 +78,4 @@ const UserTarinerDetails = () => {
 }
 
 
-export default UserTarinerDetails
+export default ShowCourse

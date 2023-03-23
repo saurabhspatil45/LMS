@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+// import jwt_decode from 'jwt-decode';
 
 const drawerWidth = 210;
 
@@ -69,7 +70,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserDashboard() {
   const theme = useTheme();
+
+
   const [open, setOpen] = React.useState(true);
+  // const [loggedIn, setLoggedIn] = React.useState(false);
+
   const Navigate = useNavigate()
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -78,13 +83,20 @@ export default function UserDashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  // const token = localStorage.getItem('LMS_Token');
+  // const decodedToken = jwt_decode(token);
+  // const username = decodedToken.Name;
+  // console.log(username)
+// if(token){
+//   setLoggedIn(true)
+// }
 
 
   return (
     <Box sx={{ display: 'flex' }}>
+
       <CssBaseline />
-      <AppBar position="fixed" sx={{backgroundColor:"#cecece",color:"black"}}  open={open}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#cecece", color: "black" }} open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -96,20 +108,23 @@ export default function UserDashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
+            {/* {username} */}
             LMS
           </Typography>
+
           <Typography>
-          <div style={{width:1200,display:"flex",justifyContent:"space-between"}}>
-            <Box>
-            </Box>
-            <div style={{display:"flex",gap:10,}}>
-            <Button sx={{border:"1px solid black",color:"black",fontWeight:"bold"}} onClick={()=>{Navigate("/loginselect")}}>Log in</Button>
-           <Button sx={{border:"1px solid black",color:"white",fontWeight:"bold",backgroundColor:"black"}} onClick={()=>{Navigate("/singup")}}>Sign up</Button>
-           </div>
-          </div>
+            <div style={{ width: 1200, display: "flex", justifyContent: "space-between" }}>
+              <Box>
+              </Box>
+              <div style={{ display: "flex", gap: 10, }}>
+                
+                <Button sx={{ border: "1px solid black", color: "black", fontWeight: "bold" }} onClick={() => { Navigate("/loginselect") }}>Log in</Button>
+                <Button sx={{ border: "1px solid black", color: "white", fontWeight: "bold", backgroundColor: "black" }} onClick={() => { Navigate("/singup") }}>Sign up</Button>
+              </div>
+            </div>
           </Typography>
         </Toolbar>
-        
+
       </AppBar>
       <Drawer
         sx={{
@@ -131,22 +146,22 @@ export default function UserDashboard() {
         </DrawerHeader>
         <Divider />
         <List>
-            <ListItem disablePadding onClick={()=>{Navigate("/allcourse")}}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AdminPanelSettingsIcon/>
-                </ListItemIcon>
-                <ListItemText primary="ALL-Courses"  />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding onClick={()=>{Navigate("/ourtrainers")}}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AdminPanelSettingsIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Trainers"  />
-              </ListItemButton>
-            </ListItem>
+          <ListItem disablePadding onClick={() => { Navigate("/allcourse") }}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="ALL-Courses" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding onClick={() => { Navigate("/ourtrainers") }}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Trainers" />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}>

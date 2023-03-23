@@ -56,6 +56,14 @@ export default function AdminDashboard() {
                 <ListItemText primary="User Manegment"  />
               </ListItemButton>
             </ListItem>
+            <ListItem disablePadding onClick={()=>{navigate("/trainerprofileadmin")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Profile"  />
+              </ListItemButton>
+            </ListItem>
             <ListItem disablePadding onClick={()=>{navigate("/coureses")}}>
               <ListItemButton>
                 <ListItemIcon>

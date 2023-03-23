@@ -57,7 +57,7 @@ userController.post("/login", async (req, res) => {
         }
 
         // password is correct, create and send JWT token
-        const token = jwt.sign({userId : user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({userId : user._id , Name:user.fname }, process.env.JWT_SECRET);
         res.json({ token });
         // console.log(token)
     } catch (error) {
@@ -66,7 +66,23 @@ userController.post("/login", async (req, res) => {
     }
 })
 
+userController.get("/get/:id", async (req,res)=>{
+  try{
+      const { id: userid } = req.params;
+      const user = await UserModel.findById(userid);
+      if (!user) {
+          return res.status(404).json({ message: `No user with id: ${userid}` });
+        } else {
+          res.status(200).json({
+            message: `user with id : ${userid} found successfully`,
+            user: user,
+          });
+        }
+  }catch(error){
+      res.status(500).json({ error: error.message });
 
+  }
+}) 
 
 
 userController.get("/alluser", async (req, res) => {
@@ -100,23 +116,7 @@ userController.delete("/delete/:id", async (req, res) => {
 
 
 
-  userController.get("/get/:id", async (req,res)=>{
-    try{
-        const { id: userid } = req.params;
-        const user = await UserModel.findById(userid);
-        if (!user) {
-            return res.status(404).json({ message: `No user with id: ${userid}` });
-          } else {
-            res.status(200).json({
-              message: `user with id : ${userid} found successfully`,
-              user: user,
-            });
-          }
-    }catch(error){
-        res.status(500).json({ error: error.message });
-
-    }
- }) 
+  
 
 module.exports = {
     userController

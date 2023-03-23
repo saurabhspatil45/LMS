@@ -10,6 +10,7 @@ import { Box } from '@mui/system';
 import TrainerDeleteDialog from './TrainerDeleteDialog';
 import TextField from '@mui/material/TextField';
 import TrainerLiveDialog from './TrainerLiveDialog';
+import { Link } from 'react-router-dom';
 
 export const TrainerDetails = () => {
 
@@ -112,7 +113,7 @@ export const TrainerDetails = () => {
     return (
         <div>
             <div style={{ marginTop: 20 }}>
-                <div style={{ float: "left", marginBottom: 20, marginTop: 30 }}>
+                <div style={{ float: "left", marginBottom: 20 }}>
                     <TextField
                         id="filled-search"
                         label="Search users"
@@ -131,11 +132,14 @@ export const TrainerDetails = () => {
                             <Card sx={{ maxWidth: 345 }}>
                                 <CardActionArea >
                                     <CardMedia
-                                        component="img"
-                                        height="150"
-                                        image={item.avatar}
+                                        // component="img"
+                                        height="200"
+                                        // image={item.avatar}
                                         alt="green iguana"
-                                    />
+                                        sx={{}}
+                                    >
+                                        <img src={item.avatar} alt="avatar" style={{height:250,width:250}}/>
+                                    </CardMedia>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
                                             {item.fname} {item.lname}
@@ -162,6 +166,9 @@ export const TrainerDetails = () => {
                                         <Button sx={{ backgroundColor: "Green", color: "white" }} onClick={() => getIdforActivate(item._id, item.fname, item.isActive)}>Make Public</Button>
                                     )
                                     }
+                                    <Button>
+                                        <Link to={`/trainerdetails/${item._id}`}>More Details</Link>
+                                        </Button>
 
                                 </CardActions>
                             </Card>

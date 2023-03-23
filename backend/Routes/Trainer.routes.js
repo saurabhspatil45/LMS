@@ -74,6 +74,23 @@ TrainerController.post("/login", async (req, res) => {
     }
 })
 
+TrainerController.get("/get/:id", async (req, res) => {
+    try {
+        const { id: trainerid } = req.params;
+        const trainer = await TrainerModel.findById(trainerid);
+        if (!trainer) {
+            return res.status(404).json({ message: `No user with id: ${trainerid}` });
+        } else {
+            res.status(200).json({
+                message: `user with id : ${trainerid} found successfully`,
+                trainer: trainer,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+
+    }
+})
 
 TrainerController.delete("/delete/:id", async (req, res) => {
     try {
@@ -104,23 +121,7 @@ TrainerController.get("/alltrainer", async (req, res) => {
     }
 });
 
-TrainerController.get("/get/:id", async (req, res) => {
-    try {
-        const { id: trainerid } = req.params;
-        const trainer = await TrainerModel.findById(trainerid);
-        if (!trainer) {
-            return res.status(404).json({ message: `No user with id: ${trainerid}` });
-        } else {
-            res.status(200).json({
-                message: `user with id : ${trainerid} found successfully`,
-                trainer: trainer,
-            });
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
 
-    }
-})
 
 //patch request
 //  http://localhost:8080/trainer/patch/id

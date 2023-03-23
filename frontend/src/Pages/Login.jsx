@@ -39,7 +39,7 @@ const navigate =useNavigate()
         .then((res) => {
             console.log(res)
              if(res.token){
-            //     localStorage.setItem("LMS_Token", res.token)
+                localStorage.setItem("LMS_Token", res.token)
                  navigate("/")
              }
         })
