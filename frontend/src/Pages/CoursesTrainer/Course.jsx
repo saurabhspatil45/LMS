@@ -5,11 +5,10 @@ import Button from '@mui/material/Button';
 import { AdminDialog } from "./AdminDialog";
 import jwt_decode from 'jwt-decode';
 import { useState } from "react";
-import ShowCourse from "./ShowCourse";
 
 export const Course = () => {
     const [open, setOpen] = React.useState(false);
-    const [owner,setowner] =useState("")
+    const [owner, setowner] = useState("")
 
     const handleClickOpen = () => {
         const tok = localStorage.getItem('LMS_Admin_Token');
@@ -34,10 +33,9 @@ export const Course = () => {
                     <Box sx={{ float: "left" }}>
                         <Button variant="contained" onClick={handleClickOpen}>Create Course</Button>
 
-                        <AdminDialog open={open} handleClose={handleClose} owner={owner} />
-                        <ShowCourse/>
+                        
                     </Box>
-
+                    <AdminDialog open={open} handleClose={handleClose} owner={owner} />
                 </Box>
             </Box>
         </div>

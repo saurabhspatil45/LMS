@@ -65,7 +65,7 @@ TrainerController.post("/login", async (req, res) => {
         }
 
         // password is correct, create and send JWT token
-        const token = jwt.sign({ userId: trainer._id, userName: trainer.fname }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: trainer._id, userName: trainer.fname, isAdmin: trainer.isAdmin }, process.env.JWT_SECRET);
         res.json({ token });
         // console.log(token)
     } catch (error) {

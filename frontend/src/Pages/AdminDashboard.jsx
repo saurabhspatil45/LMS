@@ -13,13 +13,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const drawerWidth = 240;
 
 export default function AdminDashboard() {
 
     const navigate = useNavigate()
-
+    const tok = localStorage.getItem('LMS_Admin_Token');
+    const decodedToken = jwt_decode(tok);
+    const user = decodedToken.isAdmin;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -48,14 +51,24 @@ export default function AdminDashboard() {
         <Toolbar />
         <Divider />
         <List>
+          {user===true ? (
+            <div>
             <ListItem disablePadding onClick={()=>{navigate("/usermanegment")}}>
               <ListItemButton>
                 <ListItemIcon>
                   <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary="User Manegment"  />
+                <ListItemText primary="User Management"  />
               </ListItemButton>
             </ListItem>
+            <ListItem disablePadding onClick={()=>{navigate("/coursemanagement")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Course Management"  />
+              </ListItemButton>
+            </ListItem>   
             <ListItem disablePadding onClick={()=>{navigate("/trainerprofileadmin")}}>
               <ListItemButton>
                 <ListItemIcon>
@@ -64,6 +77,28 @@ export default function AdminDashboard() {
                 <ListItemText primary="Profile"  />
               </ListItemButton>
             </ListItem>
+           
+            <ListItem disablePadding onClick={()=>{navigate("/coureses")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Courses"  />
+              </ListItemButton>
+            </ListItem>
+            
+            </div>
+          ):(
+           <div>
+            <ListItem disablePadding onClick={()=>{navigate("/trainerprofileadmin")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Profile"  />
+              </ListItemButton>
+            </ListItem>
+           
             <ListItem disablePadding onClick={()=>{navigate("/coureses")}}>
               <ListItemButton>
                 <ListItemIcon>
@@ -72,6 +107,14 @@ export default function AdminDashboard() {
                 <ListItemText primary="Courses Manegnment"  />
               </ListItemButton>
             </ListItem>
+           </div>
+
+
+
+
+
+
+          )}
         </List>
         
       </Drawer>

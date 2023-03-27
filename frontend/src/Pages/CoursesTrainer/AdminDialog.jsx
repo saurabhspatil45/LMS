@@ -6,34 +6,101 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Button from '@mui/material/Button';
-import { useState } from "react";
-import axios from "axios"
+import { useState, useEffect } from "react";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, CardActions } from '@mui/material';
+import axios from "axios";
+import CourseSubmitDailog from "./CourseSubmitDailog";
+export const AdminDialog = ({ open, handleClose, owner }) => {
+    const [openL, setOpenL] = React.useState(false);
+    const [pending, setpending] = useState("")
+    const [name, setname] = useState("")
+    const [img, setimg] = useState("")
+    const [des, setdes] = useState("")
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [ID, setID] = useState("");
 
-export const AdminDialog = ({ open, handleClose,owner }) => {
-    const [name,setname] =useState("")
-    const [img,setimg] =useState("")
-    const [des,setdes] =useState("")
+    useEffect(() => {
+        GetCourse()
+    }, []);
 
 
+
+    const GetCourse = () => {
+        setIsLoading(true);
+        axios.get('http://localhost:8080/course/allcourse')
+            .then(response => {
+                setData(response.data.courses);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error(error);
+                setIsLoading(false);
+            });
+
+
+    }
+    const handleClickOpenL = () => {
+        setOpenL(true);
+    };
+
+    const handleCloseL = () => {
+        setOpenL(false);
+    };
+
+    const handleStatusPending = () => {
+        setpending('pending')
+        handleClickOpenL()
+    };
     const submitHandler = async () => {
-        
+
         const payload = {
             name,
             img,
             des,
             owner,
-          }
+        }
 
 
-          try {
+        try {
             const response = await axios.post('http://localhost:8080/course/create', payload);
-            alert("Course Craeted")
             console.log(response.data)
-          } catch (error) {
+            alert("Course Craeted")
+            handleClose()
+
+            return GetCourse()
+
+        } catch (error) {
             alert("something went wrong")
             console.error(error);
-          }
-        handleClose()
+        }
+
+    }
+
+
+    const getIdSatusPending = (_id, name) => {
+        axios.get(`http://localhost:8080/course/get/${_id}`)
+            .then(response => {
+                setID(_id)
+                setname(name)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        handleStatusPending()
+        console.log(pending)
+
+    }
+
+
+
+
+    if (isLoading) {
+        return <div style={{ margin: "auto" }}><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjM0NjU4Y2I4ZGQ5NDM2MTVhMDEzMjAyMDI3ZWI0MTE2ODRmNTAzZCZjdD1n/ZO9b1ntYVJmjZlsWlm/giphy.gif" alt="loading" /></div>;
     }
     return (
         <div>
@@ -47,7 +114,7 @@ export const AdminDialog = ({ open, handleClose,owner }) => {
                             flexDirection: 'column',
                             p: 1,
                             m: 1,
-                            width:500,
+                            width: 500,
                             bgcolor: 'background.paper',
                             borderRadius: 1,
                             gap: 1
@@ -79,15 +146,15 @@ export const AdminDialog = ({ open, handleClose,owner }) => {
                             label="owner"
                             value={owner}
                             autoFocus
-                            // onChange={(e) => setowner(e.target.value)}
+                        // onChange={(e) => setowner(e.target.value)}
                         />
-                        
+
                         <TextField
                             fullWidth
                             label="Description"
                             multiline
                             rows={4}
-                            onChange={(e)=> setdes(e.target.value)}
+                            onChange={(e) => setdes(e.target.value)}
                         />
                     </Box>
                 </DialogContent>
@@ -96,6 +163,49 @@ export const AdminDialog = ({ open, handleClose,owner }) => {
                     <Button onClick={submitHandler}>Create</Button>
                 </DialogActions>
             </Dialog>
+            <CourseSubmitDailog openL={openL} handleCloseL={handleCloseL} pending={pending} ID={ID} Name={name} GetCourse={GetCourse} />
+            <Box sx={{ mt: 12, width: 1250, display: "grid", gridTemplateColumns: "repeat(3,1fr)" }}>
+
+                {data.map(item => (
+                    <div key={item._id}>
+                        <Card sx={{ maxWidth: 345 }}>
+                            <CardActionArea >
+                                <CardMedia
+                                    component="img"
+                                    height="150"
+                                    image={item.img}
+                                    alt="green iguana"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {item.des}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        created:{item.owner}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                {item.status === "pending" ? (
+                                    <Button fullWidth color="primary" sx={{ backgroundColor: "yellow", color: "white",fontWeight:600  }} disabled >Pending for approval</Button>
+
+                                ):item.status ==="approved" ?(
+                                    <Button fullWidth sx={{ backgroundColor: "green", color: "white",fontWeight:600 }} disabled>Approved</Button>
+                                ): (
+                                    <Button fullWidth  sx={{ backgroundColor: "red", color: "white",fontWeight:600  }} onClick={() => getIdSatusPending(item._id, item.name, item.status)}>Submit for Approval</Button>
+
+                                )}
+                            </CardActions>
+                        </Card>
+
+                    </div>
+                ))}
+                {/* <AdminDialog/> */}
+            </Box>
+
         </div>
     )
 }

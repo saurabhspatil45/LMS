@@ -18,6 +18,12 @@ import { TrainerProfilePageAD } from "../Pages/AdminSideTrainerProfile/TrainerPr
 // import { TrainerFullInfoCilent } from "../Pages/TrainerFullInfoCilent.jsx"
 import { TrainerInfoPage } from "../Pages/TrainerInfoPage.jsx"
 import { AdTrainerInfoPage } from "../Pages/AdTrainerInfoPage.jsx"
+import { TrainerPending } from "../Pages/PendingTrainer/TrainerPending.jsx"
+import { TrainerApprovedPage } from "../Pages/ApprovedTrainer/TrainerApprovedPage.jsx"
+import { CourseManagenmentMainPage } from "../Pages/AdminCourseMangenment/CourseManagenmentMainPage.jsx"
+import { CourseAllDraftPage } from "../Pages/AdminCourseMangenment/CourseAllDraftPage.jsx"
+import { CoursePendingPage } from "../Pages/AdminCourseMangenment/CoursePendingPage.jsx"
+import { CourseAllApprovedPage } from "../Pages/AdminCourseMangenment/CourseAllApprovedPage.jsx"
 const AllRoutes = () => {
 
     return (
@@ -41,6 +47,13 @@ const AllRoutes = () => {
                 <Route path="/trainerdetails" element={<TrainerPage/>}/>
                 <Route path="/trainerdetails/:id" element={<AdTrainerInfoPage/>}/>
                 <Route path="/trainerprofileadmin" element={<TrainerProfilePageAD/>}/>
+                <Route path="/trainerpending" element={<TrainerPending/>}/>
+                <Route path="/approvedtrainer" element={<TrainerApprovedPage/>}/>
+                <Route path="/coursemanagement"element={<CourseManagenmentMainPage/>}/>
+                <Route path="/coursealldraft"element={<CourseAllDraftPage/>}/>
+                <Route path="/coursependingadmin"element={<CoursePendingPage/>}/>
+                <Route path="/courseapprovedadmin"element={<CourseAllApprovedPage/>}/>
+
 
             </Routes>
         </div>

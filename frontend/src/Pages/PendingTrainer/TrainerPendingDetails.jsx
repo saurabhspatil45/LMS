@@ -7,12 +7,12 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Box } from '@mui/system';
-import TrainerDeleteDialog from './TrainerDeleteDialog';
 import TextField from '@mui/material/TextField';
-import TrainerLiveDialog from './TrainerLiveDialog';
 import { Link } from 'react-router-dom';
+import TrainerDeleteDialog from '../../Components/TrainerDeleteDialog';
+import TrainerLiveDialog from '../../Components/TrainerLiveDialog';
 
-export const TrainerDetails = () => {
+export const TrainerPendingDetails = () => {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,7 @@ export const TrainerDetails = () => {
         setIsLoading(true);
         axios.get('http://localhost:8080/trainer/alltrainer')
             .then(response => {
-                setData(response.data.trainer);
+                setData(response.data.trainer.filter(item =>  item.isActive === false));
                 setIsLoading(false);
             })
             .catch(error => {
@@ -112,8 +112,8 @@ export const TrainerDetails = () => {
     }
     return (
         <div>
-            <div style={{ marginTop: 20 }}>
-                <div style={{ float: "left", marginBottom: 20 }}>
+            {/* <div style={{ marginTop: 20 }}> */}
+                <div style={{ float: "left", marginBottom: 20, marginTop: 30}}>
                     <TextField
                         id="filled-search"
                         label="Search users"
@@ -138,7 +138,7 @@ export const TrainerDetails = () => {
                                         alt="green iguana"
                                         sx={{}}
                                     >
-                                        <img src={item.avatar} alt="avatar" style={{ height: 250, width: 250 }} />
+                                        <img src={item.avatar} alt="avatar" style={{height:250,width:250}}/>
                                     </CardMedia>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
@@ -156,8 +156,10 @@ export const TrainerDetails = () => {
                                     <Button size="small" color="primary" onClick={() => getIdfordelete(item._id, item.fname, item.isActive)}>
                                         Delete
                                     </Button>
-                                    <TrainerDeleteDialog open={open} handleClose={handleClose} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers} />
-                                    <TrainerLiveDialog openL={openL} handleCloseL={handleCloseL} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers} isActive={isActive} />
+                                    {/* <TrainerDeleteDialog open={open} handleClose={handleClose} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers} /> */}
+                                    {/* <TrainerLiveDialog openL={openL} handleCloseL={handleCloseL} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers} isActive={isActive} /> */}
+                                    <TrainerDeleteDialog open={open} handleClose={handleClose} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers}/>
+                                    <TrainerLiveDialog openL={openL} handleCloseL={handleCloseL} deleteID={deleteID} Name={Fname} GetTrainers={GetTrainers} isActive={isActive}/>
                                     {item.isActive ? (
                                         <Button size="small" color="primary" sx={{ backgroundColor: "red", color: "white" }} onClick={() => getIdforDEActivate(item._id, item.fname, item.isActive)} >
                                             Make Pending
@@ -168,14 +170,14 @@ export const TrainerDetails = () => {
                                     }
                                     <Button>
                                         <Link to={`/trainerdetails/${item._id}`}>More Details</Link>
-                                    </Button>
+                                        </Button>
 
                                 </CardActions>
                             </Card>
                         </div>
                     ))}
                 </Box>
-            </div>
+            {/* </div> */}
         </div>
     )
 }
