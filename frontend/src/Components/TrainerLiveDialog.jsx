@@ -15,7 +15,7 @@ export default function TrainerLiveDialog({ openL, handleCloseL, deleteID, Name,
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 const MakeActive =()=>{
-    axios.patch(`http://localhost:8080/trainer/patch/${deleteID}`,{
+    axios.patch(`https://fair-blue-capybara-vest.cyclic.app/trainer/patch/${deleteID}`,{
         isActive:isActive
     })
         .then(response => {

@@ -28,7 +28,7 @@ const navigate =useNavigate()
             password,
         }
 
-        fetch("http://localhost:8080/user/login",{
+        fetch("https://fair-blue-capybara-vest.cyclic.app/user/login",{
             method : "POST",
             headers: {
                 'Content-Type': 'application/json',

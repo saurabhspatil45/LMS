@@ -9,19 +9,19 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import axios from "axios";
 
-export default function CourseSubmitDailog({ openL, handleCloseL, ID, Name, pending, GetCourse }) {
+export default function LectureApproveDailog({ openL, handleCloseL, ID, Name, approved, GetLecture }) {
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const SubmitCourse =()=>{
-        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/course/patch/${ID}`,{
-            status:pending
+    const FinalApproval =()=>{
+        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/lecture/patch/${ID}`,{
+            status:approved
         })
             .then(response => {
         console.log("update successfully.....")
 
-                 return GetCourse()
+                 return GetLecture()
             })
             .catch(error => {
                 console.error(error);
@@ -39,19 +39,19 @@ export default function CourseSubmitDailog({ openL, handleCloseL, ID, Name, pend
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
-                    {"Are you Sure Want to submit course for approval?"}
+                    {"Are you Sure Want To Approve?"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {Name}<br></br>
-                        Once Clicked will be submitted for approval
+                        Once Clicked will be Approved
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleCloseL}>
                         Disagree
                     </Button>
-                    <Button onClick={SubmitCourse} autoFocus>
+                    <Button onClick={FinalApproval} autoFocus>
                         Agree
                     </Button>
                 </DialogActions>

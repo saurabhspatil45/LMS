@@ -6,6 +6,16 @@ require("dotenv").config()
 
 const CourseController = Router();
 
+CourseController.get("/allcourse", async (req, res) => {
+    const courses = await CourseModel.find();
+    try {
+        res.status(200).send({
+            courses: courses,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 CourseController.post("/create", async (req, res) => {
     try {
@@ -72,17 +82,23 @@ CourseController.patch("/patch/:id", async (req, res) => {
     }
 });
 
-CourseController.get("/allcourse", async (req, res) => {
-    const courses = await CourseModel.find();
+
+CourseController.delete("/delete/:id", async (req, res) => {
     try {
-        res.status(200).send({
-            courses: courses,
-        });
+        const { id: courseid } = req.params;
+        const course = await CourseModel.findByIdAndDelete(courseid);
+        if (!course) {
+            return res.status(404).json({ message: `No course with id: ${courseid}` });
+        } else {
+            res.status(200).json({
+                message: `course with id : ${courseid} deleted successfully`,
+                courses: course,
+            });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 
 

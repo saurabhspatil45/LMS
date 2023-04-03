@@ -9,24 +9,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import axios from "axios";
 
-export default function CourseSubmitDailog({ openL, handleCloseL, ID, Name, pending, GetCourse }) {
+export default function LectureSubmitDailog({ openL, handleCloseL, ID, Name, pending, GetAllLectures }) {
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const SubmitCourse =()=>{
-        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/course/patch/${ID}`,{
+    const SubmitCourse = () => {
+        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/lecture/patch/${ID}`,{
             status:pending
         })
             .then(response => {
         console.log("update successfully.....")
 
-                 return GetCourse()
+                 return GetAllLectures()
             })
             .catch(error => {
                 console.error(error);
             });
-    
+
         handleCloseL()
     }
 
@@ -39,7 +39,7 @@ export default function CourseSubmitDailog({ openL, handleCloseL, ID, Name, pend
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
-                    {"Are you Sure Want to submit course for approval?"}
+                    {"Are you Sure Want to submit lecture for approval?"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>

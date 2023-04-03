@@ -32,7 +32,7 @@ export const AdminDialog = ({ open, handleClose, owner }) => {
 
     const GetCourse = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/course/allcourse')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/course/allcourse')
             .then(response => {
                 setData(response.data.courses);
                 setIsLoading(false);
@@ -67,7 +67,7 @@ export const AdminDialog = ({ open, handleClose, owner }) => {
 
 
         try {
-            const response = await axios.post('http://localhost:8080/course/create', payload);
+            const response = await axios.post('https://fair-blue-capybara-vest.cyclic.app/course/create', payload);
             console.log(response.data)
             alert("Course Craeted")
             handleClose()
@@ -83,7 +83,7 @@ export const AdminDialog = ({ open, handleClose, owner }) => {
 
 
     const getIdSatusPending = (_id, name) => {
-        axios.get(`http://localhost:8080/course/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/course/get/${_id}`)
             .then(response => {
                 setID(_id)
                 setname(name)

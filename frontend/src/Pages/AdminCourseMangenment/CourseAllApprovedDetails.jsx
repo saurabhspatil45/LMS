@@ -28,7 +28,7 @@ export const CourseAllApprovedDetails = () => {
 
     const GetCourse = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/course/allcourse')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/course/allcourse')
             .then(response => {
                 setData(response.data.courses.filter(item => item.status === "approved"));
                 setIsLoading(false);
@@ -61,7 +61,7 @@ export const CourseAllApprovedDetails = () => {
     };
 
     const getIdSatusActive = (_id, name) => {
-        axios.get(`http://localhost:8080/course/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/course/get/${_id}`)
             .then(response => {
                 setID(_id)
                 setname(name)
@@ -73,7 +73,7 @@ export const CourseAllApprovedDetails = () => {
     }
 
     const getIdSatusDEActive = (_id, name) => {
-        axios.get(`http://localhost:8080/course/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/course/get/${_id}`)
             .then(response => {
                 setID(_id)
                 setname(name)
@@ -116,9 +116,9 @@ export const CourseAllApprovedDetails = () => {
                             <CardActions>
 
                                 {item.isActive ? (
-                                    <Button sx={{ backgroundColor: "red", color: "white", fontWeight: 600 }} onClick={() => getIdSatusDEActive(item._id, item.name, item.status)}>Deactivate</Button>
+                                    <Button sx={{ backgroundColor: "green", color: "white", fontWeight: 600 }} onClick={() => getIdSatusDEActive(item._id, item.name, item.status)}>Deactivate</Button>
                                 ) : (
-                                    <Button sx={{ backgroundColor: "green", color: "white", fontWeight: 600 }} onClick={() => getIdSatusActive(item._id, item.name, item.status)}>Make Active</Button>
+                                    <Button sx={{ backgroundColor: "red", color: "white", fontWeight: 600 }} onClick={() => getIdSatusActive(item._id, item.name, item.status)}>Make Active</Button>
 
                                 )}
                             </CardActions>

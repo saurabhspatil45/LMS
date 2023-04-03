@@ -40,7 +40,7 @@ export const TrainerPendingDetails = () => {
     };
     const GetTrainers = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/trainer/alltrainer')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/trainer/alltrainer')
             .then(response => {
                 setData(response.data.trainer.filter(item =>  item.isActive === false));
                 setIsLoading(false);
@@ -70,7 +70,7 @@ export const TrainerPendingDetails = () => {
 
     const getIdfordelete = (_id, fname) => {
         handleClickOpen()
-        axios.get(`http://localhost:8080/trainer/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/trainer/get/${_id}`)
             .then(response => {
                 setdeleteID(_id)
                 setFname(fname)
@@ -81,7 +81,7 @@ export const TrainerPendingDetails = () => {
     }
 
     const getIdforActivate = (_id, fname) => {
-        axios.get(`http://localhost:8080/trainer/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/trainer/get/${_id}`)
             .then(response => {
                 setdeleteID(_id)
                 setFname(fname)
@@ -94,7 +94,7 @@ export const TrainerPendingDetails = () => {
     }
 
     const getIdforDEActivate = (_id, fname) => {
-        axios.get(`http://localhost:8080/trainer/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/trainer/get/${_id}`)
             .then(response => {
                 setdeleteID(_id)
                 setFname(fname)

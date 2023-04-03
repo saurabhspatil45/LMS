@@ -22,7 +22,8 @@ export const CreateTrainer = () => {
             password,
         }
         try {
-            const response = await axios.post('http://localhost:8080/trainer/signup', payload);
+            // const response = await axios.post('http://localhost:8080/trainer/signup', payload);
+            const response = await axios.post('https://fair-blue-capybara-vest.cyclic.app/trainer/signup', payload);
             alert("User created sussecfully")
             console.log(response.data)
         } catch (error) {

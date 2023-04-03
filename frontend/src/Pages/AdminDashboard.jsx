@@ -61,6 +61,7 @@ export default function AdminDashboard() {
                 <ListItemText primary="User Management"  />
               </ListItemButton>
             </ListItem>
+
             <ListItem disablePadding onClick={()=>{navigate("/coursemanagement")}}>
               <ListItemButton>
                 <ListItemIcon>
@@ -69,6 +70,17 @@ export default function AdminDashboard() {
                 <ListItemText primary="Course Management"  />
               </ListItemButton>
             </ListItem>   
+
+            <ListItem disablePadding onClick={()=>{navigate("/lectureadminmanegement")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Lectures Management"  />
+              </ListItemButton>
+            </ListItem> 
+
+
             <ListItem disablePadding onClick={()=>{navigate("/trainerprofileadmin")}}>
               <ListItemButton>
                 <ListItemIcon>
@@ -86,6 +98,16 @@ export default function AdminDashboard() {
                 <ListItemText primary="Courses"  />
               </ListItemButton>
             </ListItem>
+
+            <ListItem disablePadding onClick={()=>{navigate("/lecturepage")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Lectures"  />
+              </ListItemButton>
+            </ListItem>
+            
             
             </div>
           ):(
@@ -104,7 +126,16 @@ export default function AdminDashboard() {
                 <ListItemIcon>
                   <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Courses Manegnment"  />
+                <ListItemText primary="Courses"  />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding onClick={()=>{navigate("/lecturepage")}}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Lectures"  />
               </ListItemButton>
             </ListItem>
            </div>

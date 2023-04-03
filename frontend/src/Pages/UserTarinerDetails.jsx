@@ -16,7 +16,7 @@ const UserTarinerDetails = () => {
 
     const GetTrainers = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/trainer/alltrainer')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/trainer/alltrainer')
             .then(response => {
                 setData(response.data.trainer.filter(item =>  item.isActive === true));
                 setIsLoading(false);

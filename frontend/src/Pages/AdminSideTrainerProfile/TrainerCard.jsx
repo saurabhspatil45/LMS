@@ -55,7 +55,7 @@ export const TrainerCard = () => {
         const user = decodedToken.userId;
         setIsLoading(true);
 
-        axios.get(`http://localhost:8080/trainer/alltrainer`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/trainer/alltrainer`)
             .then(response => {
                 setData(response.data.trainer.filter(item => item._id === user))
                 setIsLoading(false);
@@ -84,7 +84,7 @@ export const TrainerCard = () => {
     const UpdateProfile = (_id, fname, lname, mobno, email, position, company, education,skills, avatar) => {
         let uitem = { id: _id, fname, lname, mobno, email, position, company, education,skills, avatar }
 
-        axios.patch(`http://localhost:8080/trainer/patch/${updateId}`, uitem)
+        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/trainer/patch/${updateId}`, uitem)
             .then(response => {
                 return GetTrainerProfile()
             })

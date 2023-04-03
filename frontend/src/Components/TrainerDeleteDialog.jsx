@@ -16,7 +16,9 @@ export default function TrainerDeleteDialog({ open, handleClose, deleteID, Name 
   const handleDelete = () => {
 
     // setIsLoading(true);
-    axios.delete(`http://localhost:8080/trainer/delete/${deleteID}`)
+    // axios.delete(`http://localhost:8080/trainer/delete/${deleteID}`)
+     axios.delete(`https://fair-blue-capybara-vest.cyclic.app/trainer/delete/${deleteID}`)
+
         .then(response => {
              return GetTrainers()
         })

@@ -15,7 +15,7 @@ export default function CourseActiveDialog({ openL, handleCloseL, ID, Name, isAc
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const FinalApproval =()=>{
-        axios.patch(`http://localhost:8080/course/patch/${ID}`,{
+        axios.patch(`https://fair-blue-capybara-vest.cyclic.app/course/patch/${ID}`,{
             isActive:isActive
         })
             .then(response => {

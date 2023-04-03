@@ -18,7 +18,7 @@ export const TrainerFullInfoCilent =()=>{
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get(`http://localhost:8080/trainer/get/${params.id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/trainer/get/${params.id}`)
             .then(response => {
                 setData(response.data.trainer);
                 setIsLoading(false);

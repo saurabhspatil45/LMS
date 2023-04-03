@@ -10,7 +10,7 @@ export const CourseAdminNav = () => {
             <Button variant="contained" onClick={() => navigate("/coursealldraft")}>All Draft</Button>
             <Button variant="contained" onClick={() => navigate("/coursependingadmin")}>View pending</Button>
             <Button variant="contained" onClick={() => navigate("/courseapprovedadmin")}>View Approved</Button>
-            <Button variant="contained" onClick={() => navigate("/trainerpending")}>View Rejected</Button>
+            <Button variant="contained" onClick={() => navigate("")}>View Rejected</Button>
         </div>
     )
 }

@@ -1,11 +1,11 @@
 const express = require("express")
 const cors = require("cors")
 const { userController } = require("./Routes/User.routes.js")
-const {TrainerController}=require("./Routes/Trainer.routes.js")
-const {CourseController}=require("./Routes/Course.routes.js")
-
+const { TrainerController } = require("./Routes/Trainer.routes.js")
+const { CourseController } = require("./Routes/Course.routes.js")
+const { LectureController } = require("./Routes/Lecture.routes.js")
 const { connection } = require("./Config/db.js")
-// const {authentication} =require("./Middleware/authentication.js")
+
 const app = express();
 const PORT = 8080;
 
@@ -21,9 +21,9 @@ app.use(cors())
 
 
 app.use("/user", userController)
-// app.use(authentication)
 app.use("/trainer", TrainerController)
-app.use("/course",CourseController)
+app.use("/course", CourseController)
+app.use("/lecture", LectureController)
 
 app.listen(PORT, async () => {
     try {

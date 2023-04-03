@@ -23,7 +23,7 @@ export const CourseDraftShow = () => {
 
     const GetCourse = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/course/allcourse')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/course/allcourse')
             .then(response => {
                 setData(response.data.courses.filter(item =>  item.status === "draft"));
                 setIsLoading(false);

@@ -41,7 +41,7 @@ export const UserTableDetails = () => {
 
     const Getusers = () => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/user/alluser')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/user/alluser')
             .then(response => {
                 setData(response.data.user);
                 setIsLoading(false);
@@ -58,7 +58,7 @@ export const UserTableDetails = () => {
 
     const getIdfordelete = (_id) => {
         handleClickOpen()
-        axios.get(`http://localhost:8080/user/get/${_id}`)
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/user/get/${_id}`)
             .then(response => {
                 setdeleteID(_id)
             })
@@ -70,7 +70,7 @@ export const UserTableDetails = () => {
     const handleDelete = () => {
 
         setIsLoading(true);
-        axios.delete(`http://localhost:8080/user/delete/${deleteID}`)
+        axios.delete(`https://fair-blue-capybara-vest.cyclic.app/user/delete/${deleteID}`)
             .then(response => {
                 setIsLoading(false);
                 return Getusers()

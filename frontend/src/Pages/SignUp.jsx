@@ -36,7 +36,7 @@ const SignUp = () => {
       password,
     }
     try {
-      const response = await axios.post('http://localhost:8080/user/signup', payload);
+      const response = await axios.post('https://fair-blue-capybara-vest.cyclic.app/user/signup', payload);
       alert("singup sussecfull")
       navigate("/login")
       console.log(response.data)

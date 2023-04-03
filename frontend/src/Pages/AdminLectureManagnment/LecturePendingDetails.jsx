@@ -3,33 +3,32 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
 import axios from "axios";
-import CourseApproveAdminDailog from "./Dailogs/CourseApproveAdminDailog";
+import LectureApproveDailog from "./DailogsLecture/LectureApproveDailog";
 
 
-export const CoursePendingDetails = () => {
+export const LecturePendingDetails = () => {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [openL, setOpenL] = useState(false);
     const [ID, setID] = useState("");
     const [approved, setapproved] = useState("")
-    const [name, setname] = useState("")
+    const [lname, setlname] = useState("")
 
     useEffect(() => {
-        GetCourse()
+        GetLecture()
     }, []);
 
 
 
-    const GetCourse = () => {
+    const GetLecture = () => {
         setIsLoading(true);
-        axios.get('https://fair-blue-capybara-vest.cyclic.app/course/allcourse')
+        axios.get('https://fair-blue-capybara-vest.cyclic.app/lecture/getlecture')
             .then(response => {
-                setData(response.data.courses.filter(item =>  item.status === "pending"));
+                setData(response.data.lecture.filter(item => item.status === "pending"));
                 setIsLoading(false);
             })
             .catch(error => {
@@ -54,16 +53,16 @@ export const CoursePendingDetails = () => {
         handleClickOpenL()
     };
 
-    const getIdSatusApproved = (_id, name) => {
-        axios.get(`https://fair-blue-capybara-vest.cyclic.app/course/get/${_id}`)
+    const getIdSatusApproved = (_id, lname) => {
+        axios.get(`https://fair-blue-capybara-vest.cyclic.app/lecture/getlecture/${_id}`)
             .then(response => {
                 setID(_id)
-                setname(name)
+                setlname(lname)
             })
             .catch(error => {
                 console.error(error);
             });
-            handleStatusApproval()
+        handleStatusApproval()
 
     }
     if (isLoading) {
@@ -71,38 +70,31 @@ export const CoursePendingDetails = () => {
     }
     return (
         <div>
-            <CourseApproveAdminDailog openL={openL} handleCloseL={handleCloseL} ID={ID} Name={name} GetCourse={GetCourse} approved={approved}/>
-            <Box sx={{ mt: 12, width: 1250, display: "grid", gridTemplateColumns: "repeat(3,1fr)" }}>
+            <LectureApproveDailog openL={openL} handleCloseL={handleCloseL} ID={ID} Name={lname} GetLecture={GetLecture} approved={approved} />
+
+            <Box sx={{ mt: 12, display: "grid", gridTemplateColumns: "repeat(2,1fr)", columnGap: 10, rowGap: 10, width: 1000 }}>
 
                 {data.map(item => (
-                    <div key={item._id}>
+                    <div key={item._id} >
                         <Card sx={{ maxWidth: 345 }}>
-                            <CardActionArea >
-                                <CardMedia
-                                    component="img"
-                                    height="150"
-                                    image={item.img}
-                                    alt="green iguana"
-                                />
+                            <CardActionArea>
+                                <iframe width="300" height="140" src={item.video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        {item.name}
-                                    </Typography>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {item.des}
+                                        {/* <Link to={`/home/${post.id}`}>{post.Heading}</Link> */}
+                                        {item.lname}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        created:{item.owner}
+                                        {item.ldes}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                            <Button sx={{backgroundColor:"green", color:"white"}} onClick={() => getIdSatusApproved(item._id, item.name, item.status)}>Approve</Button>
-                            </CardActions>
+                            <Button fullWidth sx={{ backgroundColor: "green", color: "white" }} onClick={() => getIdSatusApproved(item._id, item.lname, item.status)}>Approve</Button>
                         </Card>
-
                     </div>
                 ))}
+
             </Box>
 
         </div>
